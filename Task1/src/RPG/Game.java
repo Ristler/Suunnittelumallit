@@ -1,15 +1,17 @@
 package RPG;
+
 import RPG.Maps.*;
 
 public class Game {
-    Map map;
 
-    public void main() {
-        System.out.println("Luodaan mappia....");
-        createMap();
-        map.display();
+    private Map map;
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        System.out.println("Loading map....");
+        game.createMap();
+        game.map.display();
     }
-
     public void createMap() {
         int randomChoice = (int)(Math.random() * 2);
         if(randomChoice == 0) {
@@ -17,6 +19,5 @@ public class Game {
         } else if(randomChoice == 1) {
             map = new WildernessMap();
         }
-        System.out.println("Random choice: "+ map);
     }
 }

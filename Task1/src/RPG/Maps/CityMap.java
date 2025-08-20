@@ -1,4 +1,5 @@
 package RPG.Maps;
+
 import RPG.Map;
 import RPG.Tile;
 import RPG.Tiles.*;
@@ -13,11 +14,9 @@ public class CityMap extends Map {
             }
         }
     }
-
     public Tile createTile() {
         int randomTile;
         Tile newTile = null;
-
             randomTile = (int) (Math.random() * 3);
 
             if(randomTile == 0) {

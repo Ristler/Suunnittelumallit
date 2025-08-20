@@ -4,12 +4,9 @@ import RPG.Map;
 import RPG.Tile;
 import RPG.Tiles.*;
 
-
 public class WildernessMap extends Map {
 
     public WildernessMap() {
-
-        System.out.println("heiii olen wildumap");
         this.tiles = new Tile[25][25];
 
         for(int row = 0; row < tiles.length; row++) {
@@ -23,7 +20,6 @@ public class WildernessMap extends Map {
     public Tile createTile() {
         int randomTile;
         Tile newTile = null;
-
         randomTile = (int) (Math.random() * 3);
 
         if(randomTile == 0) {
@@ -35,7 +31,6 @@ public class WildernessMap extends Map {
         else if(randomTile == 2) {
             newTile = new ForestTile();
         }
-
         return newTile;
     }
 }
