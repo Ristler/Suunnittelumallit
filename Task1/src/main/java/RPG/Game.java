@@ -4,7 +4,6 @@ import RPG.Maps.*;
 public class Game {
     Map map;
 
-    //MAIN TÄHÄN?
     public void main() {
         System.out.println("Luodaan mappia....");
         createMap();
