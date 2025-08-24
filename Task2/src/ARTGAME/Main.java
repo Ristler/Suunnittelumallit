@@ -1,5 +1,6 @@
 package ARTGAME;
-import ARTGAME.concrete.*;
+import ARTGAME.concrete.factories.AFactory;
+import ARTGAME.concrete.factories.BFactory;
 
 
 public class Main {
