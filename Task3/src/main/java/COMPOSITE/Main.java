@@ -16,6 +16,7 @@ public class Main {
 
         Employee programmer1 = new Employee("John", 100000);
         Employee programmer2 = new Employee("Carl", 100000);
+
         programming.add(programmer1);
         programming.add(programmer2);
 
