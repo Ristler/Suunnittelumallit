@@ -5,13 +5,13 @@ import WeatherStation.Observable.WeatherStation;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class ConcreteWeatherStation extends WeatherStation implements Runnable {
-    Random r = new Random();
+    private final Random r = new Random();
+    private static final int MAX_TEMP = 28;
+    private static final int MIN_TEMP = 15;
 
     public ConcreteWeatherStation() {
-        double randomTemp = r.nextDouble(15, 28);
-        this.temp =(Math.round(randomTemp * 10) / 10.0);
+        this.temp = r.nextDouble(MIN_TEMP, MAX_TEMP);
         this.observers = new ArrayList<>();
     }
     @Override
@@ -31,34 +31,28 @@ public class ConcreteWeatherStation extends WeatherStation implements Runnable {
     public void SetState(Double value) {
         this.temp = value;
     }
-
     @Override
     public void run() {
-
-        int MAX_TEMP = 28;
-        int MIN_TEMP = 15;
-
         while(true) {
-
-            //0 IS SUB, 1 IS ADD.
+            
+            //0 IS ADD, 1 IS SUB.
             int addOrSub = r.nextInt(0, 2);
+            //Randomized value to add or sub
+            double change = Math.round(r.nextDouble(0.1, 1.0) * 10) / 10.0;
+            //Random time interval
             int timeInterval = r.nextInt(1000, 5000);
 
             switch (addOrSub) {
                 case 0:
-                    temp++;
+                    temp += change;
+                    
                     break;
                 case 1:
-                    temp--;
+                    temp -= change;
                     break;
             }
 
-            if(temp <= MIN_TEMP) {
-                temp = MIN_TEMP;
-            }
-            else if(temp >= MAX_TEMP) {
-                temp = MAX_TEMP;
-            }
+            temp = Math.max(MIN_TEMP, Math.min(MAX_TEMP, temp));
             Notify();
             try {
                 Thread.sleep(timeInterval);

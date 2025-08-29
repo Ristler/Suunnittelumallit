@@ -3,14 +3,13 @@ import WeatherStation.Observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
-import WeatherStation.Observer.Concrete.Tempature;
+import WeatherStation.Observer.Concrete.Temperature;
 
 public abstract class WeatherStation {
 
-    // in abstract class
     protected List<Observer> observers = new ArrayList<>();
     protected double temp;
-    protected Tempature  observer;
+    protected Temperature observer;
 
     public abstract void Attach(Observer observer);
     public abstract void Detach(Observer observer);
