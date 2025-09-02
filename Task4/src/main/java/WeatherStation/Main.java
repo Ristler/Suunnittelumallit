@@ -10,9 +10,12 @@ public class Main {
         Temperature temp3 = new Temperature(station);
         Thread t1 = new Thread(station);
         t1.start();
-        Thread.sleep(2000);
 
+
+        //Thread.sleep(2000);
         station.Detach(temp1);
+        System.out.println("Valmis");
+
 
     }
 }
