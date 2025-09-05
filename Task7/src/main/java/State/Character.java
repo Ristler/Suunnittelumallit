@@ -11,7 +11,7 @@ public class Character {
     public Character(String name) {
         this.name = name;
         this.experience = 0;
-        this.health = 100;
+        this.health = 0;
         this.levels = new ArrayList<>();
 
         //Starting level everyone should have.
@@ -34,15 +34,18 @@ public class Character {
     public void setExp(int xpAmount) {
         experience += xpAmount;
     }
-    public void setHealth(int healthDec) {
+    public void decHealth(int healthDec) {
         health -= healthDec;
+    }
+    public void addHealth(int healthAdd) {
+        if(health <= 100) {
+            health += healthAdd;
+        }
     }
     public void addLevel(String level) {
         if(!levels.contains(level)) {
             levels.add(level);
-
         }
-
     }
     public ArrayList getLevels() {
         return levels;

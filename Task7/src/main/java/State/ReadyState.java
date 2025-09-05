@@ -43,7 +43,6 @@ public class ReadyState extends State {
             gameStarted = true;
             System.out.println("Hello "+ player.getName() + ", welcome to the game!");
         }
-        //loadLevels();
 
         System.out.println("Name: "+ player.getName() + "\nExperience: "+ player.getExp()+"\n" +
                 "Health: "+ player.getHealth());

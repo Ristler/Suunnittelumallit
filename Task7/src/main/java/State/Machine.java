@@ -10,7 +10,6 @@ public class Machine {
     //VAIHDA PRIVATE, JA TEE GETTER EHK
     protected ReadyState readyState = new ReadyState(this);
 
-    //private boolean running;
 
     public Machine() {
         state = readyState;
@@ -31,6 +30,9 @@ public class Machine {
                 case "train":
                     state.trainAction();
                     break;
+                case "meditate":
+                    state.meditateAction();
+                    break;
             }
         }
     }
@@ -39,7 +41,7 @@ public class Machine {
         if (menu.equals("starting")) {
             System.out.println(" \nAvailable levels: \n");
         } else if (menu.equals("level")) {
-            System.out.println(" \nSelect game mode: \n");
+            System.out.println(" \nSelect option: \n");
         }
         for (int i = 1; i <= choices.size(); i++) {
             System.out.println(i + ". " + choices.get(i - 1));

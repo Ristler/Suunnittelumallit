@@ -3,8 +3,9 @@ package State;
 import java.util.Scanner;
 
 public class NoviceLevelState extends State {
-    private Scanner scanner = new Scanner(System.in);
-    private Boolean running = true;
+    int xp = 50;
+    private Character player = this.getMachine().readyState.returnPlayer();
+
 
     public NoviceLevelState(Machine machine) {
         super(machine);
@@ -18,9 +19,7 @@ public class NoviceLevelState extends State {
 
         switch (this.getMachine().readUserChoice(getOptions(), "level")) {
             case 1:
-                System.out.println("Training...");
                 this.getMachine().operate("train");
-                trainAction();
                 break;
             case 2:
                 this.getMachine().setState(getMachine().readyState);
@@ -31,7 +30,7 @@ public class NoviceLevelState extends State {
 
     @Override
     void trainAction() {
-        System.out.println("Welcome to train your player! This is the novice level.");
+        System.out.println("Welcome to the novice level.");
 
         while(running) {
             System.out.println("Choose your option:");
@@ -42,15 +41,13 @@ public class NoviceLevelState extends State {
 
             switch(choice) {
                 case 1:
-                    this.getMachine().readyState.returnPlayer().setExp(50);
-                    System.out.println("You just lifted some trees off the ground!");
-
+                    player.setExp(xp);
+                    System.out.println("You just lifted some trees off the ground!\nXP gained: "+xp+"\nYour total experience: "+player.getExp());
                         this.getMachine().readyState.loadLevels();
-
-
                     break;
                 case 2:
-                    this.menuAction();
+                    //this.menuAction();
+                    this.getMachine().operate("menu");
             }
 
         }
@@ -58,11 +55,11 @@ public class NoviceLevelState extends State {
 
     @Override
     void meditateAction() {
-
+        System.out.println("Not available in novice level.");
     }
 
     @Override
     void fightAction() {
-
+        System.out.println("Not available in novice level.");
     }
 }
