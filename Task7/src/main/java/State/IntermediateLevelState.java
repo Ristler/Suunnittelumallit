@@ -1,17 +1,15 @@
 package State;
 
-import java.util.ArrayList;
-
-
 public class IntermediateLevelState extends State {
 
-    private Character player = this.getMachine().readyState.returnPlayer();
+    private Character player;
     private int healthAdd = 5;
-    int xp = 100;
+    int xp = 10;
 
 
     public IntermediateLevelState(Machine machine) {
         super(machine);
+        this.player = this.getMachine().readyState.returnPlayer();
     }
 
     @Override
@@ -23,15 +21,15 @@ public class IntermediateLevelState extends State {
 
         switch (this.getMachine().readUserChoice(getOptions(), "level")) {
             case 1:
-                this.getMachine().operate("train");
+                trainAction();
                 break;
 
             case 2:
-                this.getMachine().operate("meditate");
+                meditateAction();
+                break;
 
             case 3:
                 this.getMachine().setState(getMachine().readyState);
-                this.getMachine().operate("menu");
                 break;
         }
     }
@@ -40,19 +38,25 @@ public class IntermediateLevelState extends State {
     void trainAction() {
         while(running) {
             System.out.println("Choose your option:");
-            System.out.println("1. Lift rocks " +
-                    "\n2. Go back");
+            System.out.println("1. Lift rocks \n2. Go back");
 
-            int choice = scanner.nextInt();
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number (1 or 2).");
+                scanner.next(); // discard invalid input
+            }
+            int choice = scanner.nextInt(); // read validated int
 
             switch(choice) {
                 case 1:
-                    player.setExp(xp);
-                    System.out.println("You just lifted some heavy rocks!\nXP gained: "+xp+"\nYour total experience: "+player.getExp());
-                    this.getMachine().readyState.loadLevels();
+                    player.addExp(xp);
+                    System.out.println("You just lifted some heavy rocks!\nXP gained: " + xp +
+                            "\nYour total experience: " + player.getExp());
                     break;
                 case 2:
-                    this.getMachine().operate("menu");
+                    return; // go back to menu
+                default:
+                    System.out.println("Invalid option!");
+                    break;
             }
         }
     }
@@ -62,10 +66,15 @@ public class IntermediateLevelState extends State {
     void meditateAction() {
         while(running) {
             System.out.println("Choose your option:");
-            System.out.println("1. Go lay down in the forest " +
-                    "\n2. Go back");
+            System.out.println("1. Go lay down in the forest\n2. Go back");
 
-            int choice = scanner.nextInt();
+            int choice;
+
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number (1 or 2).");
+                scanner.next();
+            }
+            choice = scanner.nextInt();
 
             switch(choice) {
                 case 1:
@@ -74,10 +83,13 @@ public class IntermediateLevelState extends State {
                     } else {
                         player.addHealth(healthAdd);
                         System.out.println("You meditated and now feel refreshed!\nHealth gained: "+healthAdd+"\nYour total health: "+player.getHealth());
-                        break;
                     }
+                    break;
                 case 2:
-                    this.getMachine().operate("menu");
+                    return;
+                default:
+                    System.out.println("Invalid option! Try again.");
+                    break;
             }
         }
     }

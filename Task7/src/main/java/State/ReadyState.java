@@ -1,10 +1,6 @@
 package State;
 
-import java.util.Scanner;
-
-
 public class ReadyState extends State {
-    private Scanner scanner = new Scanner(System.in);
     private boolean gameStarted = false;
     private Character player;
 
@@ -17,19 +13,6 @@ public class ReadyState extends State {
         return player;
     }
 
-    public void loadLevels() {
-        int xp = player.getExp();
-
-        if(xp >= 100 && xp < 200) {
-            player.addLevel("Intermediate level");
-        } else if (xp >= 200 && xp < 300) {
-            player.addLevel("Expert level");
-        } else if(xp >= 300 && xp < 400) {
-            player.addLevel("Master level");
-        }
-    }
-
-
     @Override
     void menuAction() {
 
@@ -41,9 +24,12 @@ public class ReadyState extends State {
             System.out.println("Hello "+ player.getName() + ", welcome to the game!");
         }
 
-        System.out.println("Name: "+ player.getName() + "\nExperience: "+ player.getExp()+"\n" +
-                "Health: "+ player.getHealth());
+        System.out.println("Name: "+ player.getName()+
+                "\nExperience: "+player.getExp()+
+                "\nHealth: "+ player.getHealth()+
+                "\nLevel: "+ player.getPlayerLevel());
 
+        loadLevels();
 
         switch (this.getMachine().readUserChoice(player.getLevels(), "starting")) {
 
@@ -52,30 +38,39 @@ public class ReadyState extends State {
                 this.getMachine().setState(new NoviceLevelState(this.getMachine()));
                 break;
             case 2:
-                if(player.getExp() >= 100) {
+                if(player.getPlayerLevel() >= 1) {
                     System.out.println("Intermediate level selected.");
                     this.getMachine().setState(new IntermediateLevelState(this.getMachine()));
-                }
 
+                }
                 break;
             case 3:
-                if(player.getExp() >= 200) {
+                if(player.getPlayerLevel() >= 2) {
                     System.out.println("Expert level selected.");
                     this.getMachine().setState(new ExpertLevelState(this.getMachine()));
                 }
                 break;
 
-
             case 4:
-                if(player.getExp() >= 300) {
+                if(player.getPlayerLevel() >= 3) {
                     System.out.println("Master level selected.");
                     this.getMachine().setState(new MasterLevelState(this.getMachine()));
                 }
                 break;
-
             default:
                 System.out.println("No such option available.");
                 break;
+        }
+    }
+    public void loadLevels() {
+        if(player.getPlayerLevel() >= 1) {
+            player.addLevel("Intermediate level");
+        }
+        if (player.getPlayerLevel() >= 2) {
+            player.addLevel("Expert level");
+        }
+        if(player.getPlayerLevel() >= 3) {
+            player.addLevel("Master level");
         }
     }
     @Override

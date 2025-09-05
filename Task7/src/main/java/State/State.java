@@ -13,15 +13,12 @@ public abstract class State {
     protected Boolean running = true;
 
 
-
     public State(Machine machine) {
 
         this.machine = machine;
         this.options = new ArrayList<String>();
 
         options.add("Train");
-        //options.add("Meditate");
-        //options.add("Fight");
         options.add("Change level");
     }
     public Machine getMachine() {

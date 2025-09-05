@@ -3,17 +3,16 @@ package State;
 import java.util.Random;
 
 public class ExpertLevelState extends State {
-    private Character player = this.getMachine().readyState.returnPlayer();
+    private Character player;
 
     private Random random = new Random();
-
-
     private int healthAdd = 20;
     private int currentHealth;
-    int xp = 200;
+    int xp = 20;
 
     public ExpertLevelState(Machine machine) {
         super(machine);
+        this.player =  this.getMachine().readyState.returnPlayer();
     }
 
     @Override
@@ -26,18 +25,17 @@ public class ExpertLevelState extends State {
 
         switch (this.getMachine().readUserChoice(getOptions(), "level")) {
             case 1:
-                this.getMachine().operate("train");
+                trainAction();
                 break;
 
             case 2:
-                this.getMachine().operate("fight");
+                fightAction();
 
             case 3:
-                this.getMachine().operate("meditate");
+                meditateAction();
 
             case 4:
                 this.getMachine().setState(getMachine().readyState);
-                this.getMachine().operate("menu");
                 break;
         }
     }
@@ -49,17 +47,21 @@ public class ExpertLevelState extends State {
             System.out.println("1. Practice throwing punches " +
                     "\n2. Go back");
 
-            int choice = scanner.nextInt();
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number (1 or 2).");
+                scanner.next(); // discard invalid input
+            }
+            int choice = scanner.nextInt(); // read validated int
+
 
             switch(choice) {
 
                 case 1:
-                    player.setExp(xp);
+                    player.addExp(xp);
                     System.out.println("Woah, you pack quite a punch!\nXP gained: "+xp+"\nYour total experience: "+player.getExp());
-                    this.getMachine().readyState.loadLevels();
                     break;
                 case 2:
-                    this.getMachine().operate("menu");
+                    return;
             }
         }
     }
@@ -68,9 +70,12 @@ public class ExpertLevelState extends State {
     void meditateAction() {
         while(running) {
             System.out.println("Choose your option:");
-            System.out.println("1. Go for a spiritual walk " +
-                    "\n2. Go back");
+            System.out.println("1. Go for a spiritual walk \n2. Go back");
 
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number (1 or 2).");
+                scanner.next();
+            }
             int choice = scanner.nextInt();
 
             switch(choice) {
@@ -79,15 +84,18 @@ public class ExpertLevelState extends State {
                         System.out.println("You are already refreshed!");
                     } else {
                         player.addHealth(healthAdd);
-                        System.out.println("You are refreshed and somehow little bit wiser?\nHealth gained: "+healthAdd+"\nYour total health: "+player.getHealth());
-                        break;
+                        System.out.println("You are refreshed and somehow a little bit wiser?\nHealth gained: " +
+                                healthAdd + "\nYour total health: " + player.getHealth());
                     }
+                    break;
                 case 2:
-                    this.getMachine().operate("menu");
+                    return;
+                default:
+                    System.out.println("Invalid option! Please choose 1 or 2.");
+                    break;
             }
         }
     }
-
     @Override
     void fightAction() {
         while(running) {
@@ -95,35 +103,38 @@ public class ExpertLevelState extends State {
             System.out.println("1. Enter fight match " +
                     "\n2. Go back");
 
-            int choice = scanner.nextInt();
+            int choice;
+
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number (1 or 2).");
+                scanner.next();
+            }
+            choice = scanner.nextInt();
+
             currentHealth = player.getHealth();
 
             switch(choice) {
                 case 1:
                     if(currentHealth > 0) {
                         int damage = random.nextInt(currentHealth + 1);
-                        player.setExp(xp);
+                        player.addExp(xp);
                         player.decHealth(damage);
                         System.out.println("That was one hell of a match.\n" +
                                 "\nXP gained: " + xp +
                                 "\nYour total experience: " + player.getExp()+
                                 "\nHealth: "+ player.getHealth()+
                                 "\nDamage taken: "+ damage);
-                        this.getMachine().readyState.loadLevels();
-                        break;
-                    }else{
+                    } else {
                         System.out.println("You do not have enough health to participate in a fight match.\nGo meditate!");
                     }
-
-                case 2:
-                    this.getMachine().operate("menu");
                     break;
+                case 2:
+                    menuAction();
+                    return;
 
                 default:
                     System.out.println("Something weird happened..");
-
-
-
+                    break;
             }
         }
     }

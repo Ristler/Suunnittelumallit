@@ -14,44 +14,41 @@ public class Machine {
     public Machine() {
         state = readyState;
     }
-    public void operate(String menuLocation) {
-
-        while(true) {
-            if(state == null) {
+    public void operate() {
+        while (true) {
+            if (state == null) {
+                // should never happen
                 System.out.println("Machine out of order");
                 return;
             }
-
-            switch(menuLocation) {
-                case "menu":
-                    state.menuAction();
-                    break;
-
-                case "train":
-                    state.trainAction();
-                    break;
-                case "meditate":
-                    state.meditateAction();
-                    break;
-                case "fight":
-                    state.fightAction();
-                    break;
-            }
+            state.menuAction();
         }
     }
     public int readUserChoice(ArrayList<String> choices, String menu) {
-        // print options
         if (menu.equals("starting")) {
-            System.out.println(" \nAvailable levels: \n");
+            System.out.println("\nAvailable levels:\n");
         } else if (menu.equals("level")) {
-            System.out.println(" \nSelect option: \n");
+            System.out.println("\nSelect option:\n");
         }
+
         for (int i = 1; i <= choices.size(); i++) {
             System.out.println(i + ". " + choices.get(i - 1));
         }
-        // read user input
-        return scanner.nextInt();
-
+        int choice = -1;
+        while (true) {
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice >= 1 && choice <= choices.size()) {
+                    break; // valid input
+                } else {
+                    System.out.println("Invalid choice. Enter a number between 1 and " + choices.size());
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next();
+            }
+        }
+        return choice;
     }
 
     public void setState(State state) {

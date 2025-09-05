@@ -8,7 +8,9 @@ public class MasterLevelState extends State {
 
     @Override
     void menuAction() {
-        System.out.println("Not available");
+        System.out.println("You won the game!");
+        System.exit(0);
+
     }
 
     @Override
