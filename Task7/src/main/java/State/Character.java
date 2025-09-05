@@ -40,12 +40,15 @@ public class Character {
     public void addHealth(int healthAdd) {
         if(health <= 100) {
             health += healthAdd;
+
         }
     }
     public void addLevel(String level) {
         if(!levels.contains(level)) {
             levels.add(level);
+
         }
+
     }
     public ArrayList getLevels() {
         return levels;

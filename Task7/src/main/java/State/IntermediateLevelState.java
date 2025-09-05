@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class IntermediateLevelState extends State {
 
     private Character player = this.getMachine().readyState.returnPlayer();
-    private int healthAdd = 10;
+    private int healthAdd = 5;
     int xp = 100;
 
 
@@ -40,8 +40,8 @@ public class IntermediateLevelState extends State {
     void trainAction() {
         while(running) {
             System.out.println("Choose your option:");
-            System.out.println("1. Lift weights " +
-                    "\n2. Exit");
+            System.out.println("1. Lift rocks " +
+                    "\n2. Go back");
 
             int choice = scanner.nextInt();
 
@@ -62,8 +62,8 @@ public class IntermediateLevelState extends State {
     void meditateAction() {
         while(running) {
             System.out.println("Choose your option:");
-            System.out.println("1. Meditate " +
-                    "\n2. Exit");
+            System.out.println("1. Go lay down in the forest " +
+                    "\n2. Go back");
 
             int choice = scanner.nextInt();
 

@@ -33,6 +33,9 @@ public class Machine {
                 case "meditate":
                     state.meditateAction();
                     break;
+                case "fight":
+                    state.fightAction();
+                    break;
             }
         }
     }

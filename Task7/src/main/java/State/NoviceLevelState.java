@@ -34,7 +34,7 @@ public class NoviceLevelState extends State {
 
         while(running) {
             System.out.println("Choose your option:");
-            System.out.println("1. Lift weights " +
+            System.out.println("1. Lift trees " +
                     "\n2. Exit");
 
             int choice = scanner.nextInt();

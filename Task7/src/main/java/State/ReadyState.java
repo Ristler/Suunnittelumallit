@@ -17,11 +17,8 @@ public class ReadyState extends State {
         return player;
     }
 
-
-    /// DOESNT WORK. NEEDS TO LIMIT
     public void loadLevels() {
         int xp = player.getExp();
-
 
         if(xp >= 100 && xp < 200) {
             player.addLevel("Intermediate level");
@@ -66,6 +63,7 @@ public class ReadyState extends State {
                     System.out.println("Expert level selected.");
                     this.getMachine().setState(new ExpertLevelState(this.getMachine()));
                 }
+                break;
 
 
             case 4:
@@ -73,6 +71,7 @@ public class ReadyState extends State {
                     System.out.println("Master level selected.");
                     this.getMachine().setState(new MasterLevelState(this.getMachine()));
                 }
+                break;
 
             default:
                 System.out.println("No such option available.");

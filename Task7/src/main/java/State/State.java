@@ -42,6 +42,8 @@ public abstract class State {
 
 
 
+
+
     abstract void menuAction();
     abstract void trainAction();
     abstract void meditateAction();
