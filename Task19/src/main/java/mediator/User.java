@@ -19,6 +19,9 @@ public class User  {
     public void sendMessage(String msg) {
         mediator.sendMessage(this, msg);
     }
+    public void sendMessageToUser(String msg, User recipient) {
+        mediator.sendMessageToUser(this, recipient, msg);
+    }
     public void receiveMessage(User user, String msg) {
         chatBoxTextArea.appendText(user.getUsername() + ": " + msg + "\n");
     }
